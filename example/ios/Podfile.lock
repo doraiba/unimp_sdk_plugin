@@ -1,0 +1,53 @@
+PODS:
+  - Flutter (1.0.0)
+  - integration_test (0.0.1):
+    - Flutter
+  - unimp_sdk_plugin (0.0.1):
+    - Flutter
+    - YUniMPSDK (~> 3.96)
+  - YUniMPSDK (3.96):
+    - YUniMPSDK/Audio (= 3.96)
+    - YUniMPSDK/Barcode (= 3.96)
+    - YUniMPSDK/Camera (= 3.96)
+    - YUniMPSDK/Contacts (= 3.96)
+    - YUniMPSDK/Core (= 3.96)
+    - YUniMPSDK/NativeJs (= 3.96)
+    - YUniMPSDK/Video (= 3.96)
+    - YUniMPSDK/Zip (= 3.96)
+  - YUniMPSDK/Audio (3.96)
+  - YUniMPSDK/Barcode (3.96)
+  - YUniMPSDK/Basic (3.96)
+  - YUniMPSDK/Camera (3.96)
+  - YUniMPSDK/Contacts (3.96)
+  - YUniMPSDK/Core (3.96):
+    - YUniMPSDK/Basic
+  - YUniMPSDK/NativeJs (3.96)
+  - YUniMPSDK/Video (3.96)
+  - YUniMPSDK/Zip (3.96)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - unimp_sdk_plugin (from `.symlinks/plugins/unimp_sdk_plugin/ios`)
+
+SPEC REPOS:
+  trunk:
+    - YUniMPSDK
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+  unimp_sdk_plugin:
+    :path: ".symlinks/plugins/unimp_sdk_plugin/ios"
+
+SPEC CHECKSUMS:
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  integration_test: 13825b8a9334a850581300559b8839134b124670
+  unimp_sdk_plugin: 21c68410f0d2834ceb3ff2d8a0f535918e196670
+  YUniMPSDK: 6e7afb1524904e4ada8c2d885b927934da355941
+
+PODFILE CHECKSUM: 594c22294845535fa779377b75a4ccda07630031
+
+COCOAPODS: 1.12.1
