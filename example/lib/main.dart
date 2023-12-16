@@ -55,7 +55,12 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(children: [
+            Text('Running on: $_platformVersion\n'),
+            TextButton(child: const Text("open"),onPressed: (){
+              _unimpSdkPlugin.openUniMP("http://192.168.0.107:8080/__UNI__11E9B73.wgt");
+            },),
+          ],),
         ),
       ),
     );

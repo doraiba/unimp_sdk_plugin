@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:unimp_sdk_plugin/unimp_sdk_plugin.dart';
 import 'package:unimp_sdk_plugin/unimp_sdk_plugin_platform_interface.dart';
@@ -10,6 +12,12 @@ class MockUnimpSdkPluginPlatform
 
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
+
+  @override
+  Future<Bool?> isExistsUniMP(String appid) {
+    // TODO: implement isExistsUniMP
+    throw UnimplementedError();
+  }
 }
 
 void main() {

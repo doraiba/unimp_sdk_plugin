@@ -5,10 +5,26 @@
 // platforms in the `pubspec.yaml` at
 // https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms.
 
+import 'dart:ffi';
+
 import 'unimp_sdk_plugin_platform_interface.dart';
 
 class UnimpSdkPlugin {
   Future<String?> getPlatformVersion() {
     return UnimpSdkPluginPlatform.instance.getPlatformVersion();
+  }
+
+  Future<bool> isExistsUniMP(String appid) {
+    return UnimpSdkPluginPlatform.instance.isExistsUniMP(appid);
+  }
+
+  Future<bool> openUniMP(String appid, {Map<String, dynamic>? configuration}) {
+    return UnimpSdkPluginPlatform.instance
+        .openUniMP(appid, configuration: configuration);
+  }
+
+  Future<bool?> closeAll() {
+    return UnimpSdkPluginPlatform.instance
+        .closeAll();
   }
 }
