@@ -1,22 +1,14 @@
 PODS:
-  - DIY_UniMPSDK (3.4.18.1):
-    - DIY_UniMPSDK/Core (= 3.4.18.1)
-  - DIY_UniMPSDK/Core (3.4.18.1):
-    - DIY_UniMPSDK/Core/Headers (= 3.4.18.1)
-    - DIY_UniMPSDK/Core/Libs (= 3.4.18.1)
-  - DIY_UniMPSDK/Core/Headers (3.4.18.1):
-    - DIY_UniMPSDK/Core/Headers/weexHeader (= 3.4.18.1)
-  - DIY_UniMPSDK/Core/Headers/weexHeader (3.4.18.1)
-  - DIY_UniMPSDK/Core/Libs (3.4.18.1)
   - Flutter (1.0.0)
+  - FlutterUniAppMp (0.0.4)
   - integration_test (0.0.1):
     - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
   - unimp_sdk_plugin (0.0.1):
-    - DIY_UniMPSDK (= 3.4.18.1)
     - Flutter
+    - FlutterUniAppMp (= 0.0.4)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -26,7 +18,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - DIY_UniMPSDK
+    - FlutterUniAppMp
 
 EXTERNAL SOURCES:
   Flutter:
@@ -39,12 +31,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/unimp_sdk_plugin/ios"
 
 SPEC CHECKSUMS:
-  DIY_UniMPSDK: c395d44468b4581eec66a566fe9435166f868ca2
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  FlutterUniAppMp: 3900f8227e9dfdd515993120f6e70f7b536e65d2
   integration_test: 13825b8a9334a850581300559b8839134b124670
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
-  unimp_sdk_plugin: 3f7097c74351ca40ae540a4257afb5347eee70ae
+  unimp_sdk_plugin: 68e2eac261571753dd32ed4d912a15d20c170417
 
-PODFILE CHECKSUM: 81af60599d91c7e13960f7a6ac867ad60126f4d9
+PODFILE CHECKSUM: 4ac01e3e221081afd1525f1d0dbddc3736355be7
 
 COCOAPODS: 1.14.3

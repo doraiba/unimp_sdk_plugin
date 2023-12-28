@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import FlutterUniAppMp
 
 
 public class UnimpSdkPlugin: NSObject, FlutterPlugin {
@@ -71,26 +72,27 @@ public class UnimpSdkPlugin: NSObject, FlutterPlugin {
 
     public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [AnyHashable : Any] = [:]) -> Bool {
     
+    
         // DCUniMPSDKEngine.setDelegate(self)
-        print("hello world");
+        
         let mpOptions = NSMutableDictionary(dictionary: launchOptions )
         mpOptions.setValue(NSNumber(value: true), forKey: "debug")
-        print("hello world1");
-         DCUniMPSDKEngine.initSDKEnvironment(launchOptions: mpOptions as! [AnyHashable: Any])
-//        DCUniMPSDKEngine.setCapsuleButtonHidden(false)
-//        DCUniMPSDKEngine.setAutoControlNavigationBar(true)
-//        print("hello world2");
-//        let capsuleButtonStyle = DCUniMPCapsuleButtonStyle.init()
-//        // 胶囊按钮背景颜色
-//        capsuleButtonStyle.backgroundColor = "rgba(169,169,169,0.2)"
-//        // 胶囊按钮 “···｜x” 的字体颜色
-//        capsuleButtonStyle.textColor = "#FFFFFF"
-//        // 胶囊按钮按下状态背景颜色
-//        capsuleButtonStyle.highlightColor = "rgb(203,204,205)"
-//        // 胶囊按钮边框颜色
-//        capsuleButtonStyle.borderColor = "rgba(229,229,229,0.3)"
-//        // 设置样式
-//        DCUniMPSDKEngine.configCapsuleButtonStyle(capsuleButtonStyle)
+        
+        DCUniMPSDKEngine.initSDKEnvironment(launchOptions: mpOptions as! [AnyHashable: Any])
+        //        DCUniMPSDKEngine.setCapsuleButtonHidden(false)
+        //        DCUniMPSDKEngine.setAutoControlNavigationBar(true)
+        //        print("hello world2");
+        //        let capsuleButtonStyle = DCUniMPCapsuleButtonStyle.init()
+        //        // 胶囊按钮背景颜色
+        //        capsuleButtonStyle.backgroundColor = "rgba(169,169,169,0.2)"
+        //        // 胶囊按钮 “···｜x” 的字体颜色
+        //        capsuleButtonStyle.textColor = "#FFFFFF"
+        //        // 胶囊按钮按下状态背景颜色
+        //        capsuleButtonStyle.highlightColor = "rgb(203,204,205)"
+        //        // 胶囊按钮边框颜色
+        //        capsuleButtonStyle.borderColor = "rgba(229,229,229,0.3)"
+        //        // 设置样式
+        //        DCUniMPSDKEngine.configCapsuleButtonStyle(capsuleButtonStyle)
         return true;
     }
 }
