@@ -28,8 +28,8 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 flutter_ios_podfile_setup
 
 target 'Runner' do
-  use_frameworks!
-  use_modular_headers!
+  # use_frameworks!
+  # use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
@@ -41,25 +41,22 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
   end
-
-  installer.aggregate_targets.each do |target|
-    target.xcconfigs.each do |variant, xcconfig|
-      xcconfig_path = target.client_root + target.xcconfig_relative_path(variant)
-        IO.write(xcconfig_path, IO.read(xcconfig_path).gsub("DT_TOOLCHAIN_DIR", "TOOLCHAIN_DIR"))
-      end
-    end
-   
-     installer.pod_target_subprojects.flat_map { |p| p.targets }.each do |target|
-   
-      target.build_configurations.each do |config|
-       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
-       config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
-   
-       if config.base_configuration_reference.is_a? Xcodeproj::Project::Object::PBXFileReference
-        xcconfig_path = config.base_configuration_reference.real_path
-        IO.write(xcconfig_path, IO.read(xcconfig_path).gsub("DT_TOOLCHAIN_DIR", "TOOLCHAIN_DIR"))
-       end
-      end
-     end
-   
 end
+
+# pre_install do |installer|
+#   # workaround for https://github.com/CocoaPods/CocoaPods/issues/3289
+#   Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
+# end
+
+# $static_framework = ['DIY_UniMPSDK']
+
+# pre_install do |install|
+#   puts install
+#   install.pod_targets.each {| pod |
+#     if $static_framework.include?(pod.name)
+#       def pod.build_type;
+#         Pod::BuildType.static_framework # 使用静态库
+#       end
+#     end
+#   }
+# end

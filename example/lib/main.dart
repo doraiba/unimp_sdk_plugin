@@ -31,8 +31,8 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _unimpSdkPlugin.getPlatformVersion() ?? 'Unknown platform version';
+      platformVersion = await _unimpSdkPlugin.getPlatformVersion() ??
+          'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -55,12 +55,18 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Column(children: [
-            Text('Running on: $_platformVersion\n'),
-            TextButton(child: const Text("open"),onPressed: (){
-              _unimpSdkPlugin.openUniMP("http://192.168.0.107:8080/__UNI__11E9B73.wgt");
-            },),
-          ],),
+          child: Column(
+            children: [
+              Text('Running on: $_platformVersion\n'),
+              TextButton(
+                child: const Text("open"),
+                onPressed: () {
+                  _unimpSdkPlugin.openUniMP(
+                      "http://poi-img.tantu.com/yzc/test/__UNI__B151577.wgt");
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

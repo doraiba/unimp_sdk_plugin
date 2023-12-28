@@ -1,0 +1,50 @@
+PODS:
+  - DIY_UniMPSDK (3.4.18.1):
+    - DIY_UniMPSDK/Core (= 3.4.18.1)
+  - DIY_UniMPSDK/Core (3.4.18.1):
+    - DIY_UniMPSDK/Core/Headers (= 3.4.18.1)
+    - DIY_UniMPSDK/Core/Libs (= 3.4.18.1)
+  - DIY_UniMPSDK/Core/Headers (3.4.18.1):
+    - DIY_UniMPSDK/Core/Headers/weexHeader (= 3.4.18.1)
+  - DIY_UniMPSDK/Core/Headers/weexHeader (3.4.18.1)
+  - DIY_UniMPSDK/Core/Libs (3.4.18.1)
+  - Flutter (1.0.0)
+  - integration_test (0.0.1):
+    - Flutter
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - unimp_sdk_plugin (0.0.1):
+    - DIY_UniMPSDK (= 3.4.18.1)
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - unimp_sdk_plugin (from `.symlinks/plugins/unimp_sdk_plugin/ios`)
+
+SPEC REPOS:
+  trunk:
+    - DIY_UniMPSDK
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  unimp_sdk_plugin:
+    :path: ".symlinks/plugins/unimp_sdk_plugin/ios"
+
+SPEC CHECKSUMS:
+  DIY_UniMPSDK: c395d44468b4581eec66a566fe9435166f868ca2
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  integration_test: 13825b8a9334a850581300559b8839134b124670
+  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  unimp_sdk_plugin: 3f7097c74351ca40ae540a4257afb5347eee70ae
+
+PODFILE CHECKSUM: 81af60599d91c7e13960f7a6ac867ad60126f4d9
+
+COCOAPODS: 1.14.3
