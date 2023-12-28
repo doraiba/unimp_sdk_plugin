@@ -35,28 +35,38 @@ class MethodChannelUnimpSdkPlugin extends UnimpSdkPluginPlatform {
 
   @override
   Future<bool> openUniMP(String appid,
-      {Map<String, dynamic>? configuration}) async {
+      {Map<String, dynamic>? configuration, int? version}) async {
     String path = await _localPath;
     bool isLink = appid.startsWith("http");
     String realAppid = isLink
         ? Uri.parse(appid).pathSegments.last.replaceFirst(_fileExt, '')
         : appid;
     bool exist = await isExistsUniMP(realAppid);
-    print("app -- $realAppid, exist: $exist");
+    debugPrint("app -- $realAppid, exist: $exist");
+    String wgtPath = "$path/$realAppid$_fileExt";
+
     if (!exist) {
-      // 获取文件并释放
-      String wgtPath = "$path/$realAppid$_fileExt";
-      print("url: $appid, location: $wgtPath");
-      await _dio.download(appid, wgtPath);
-      print("load ok");
-      dynamic installed = await methodChannel.invokeMethod<dynamic>(
-          "releaseWgtWithAppid", {"appid": realAppid, "wgtPath": wgtPath});
-      print("$realAppid installed: $installed");
+      await release(realAppid, appid, wgtPath);
     }
-    dynamic test = await methodChannel.invokeMethod(
-        "openUniMP", {"appid": realAppid, "configuration": configuration});
-    print("cccc $test");
-    return Future(() => false);
+    if (version != null) {
+      bool needUpdate = await methodChannel
+          .invokeMethod("updateCheck", {"appid": realAppid, version: version});
+      if (needUpdate) {
+        await release(realAppid, appid, wgtPath);
+      }
+    }
+
+    Map<String, dynamic>? r = await methodChannel
+        .invokeMethod<Map<String, dynamic>>(
+            "openUniMP", {"appid": realAppid, "extraData": configuration});
+    return r?['ok'] ?? false;
+  }
+
+  Future<Map<String, dynamic>?> release(
+      String appid, String url, String path) async {
+    await _dio.download(url, path);
+    return methodChannel.invokeMethod<Map<String, dynamic>>(
+        "releaseWgtWithAppid", {"appid": appid, "wgtPath": path});
   }
 
   Future<String> get _localPath async {
@@ -80,10 +90,6 @@ class MethodChannelUnimpSdkPlugin extends UnimpSdkPluginPlatform {
       runningPath = await getAppBasePath();
     } else {
       runningPath = "${(await getLibraryDirectory()).path}/Pandora/apps/";
-    }
-
-    if (runningPath == null) {
-      return;
     }
 
     Directory appDirectory = Directory(runningPath);

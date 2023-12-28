@@ -62,7 +62,8 @@ class _MyAppState extends State<MyApp> {
                 child: const Text("open"),
                 onPressed: () {
                   _unimpSdkPlugin.openUniMP(
-                      "http://poi-img.tantu.com/yzc/test/__UNI__B151577.wgt");
+                      "http://poi-img.tantu.com/yzc/test/__UNI__B151577.wgt",
+                      configuration: {"a": "b"});
                 },
               ),
               TextButton(
