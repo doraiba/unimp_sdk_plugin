@@ -31,6 +31,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.6
   flutter_hooks: ^0.20.3
+  getwidget: ^4.0.0
+  fl_query: ^1.0.0
+  fl_query_hooks: ^1.0.0
+  dio: ^5.4.0
 
 dev_dependencies:
   integration_test:

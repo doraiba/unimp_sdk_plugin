@@ -65,11 +65,13 @@ class MethodChannelUnimpSdkPlugin extends UnimpSdkPluginPlatform {
     return r?['ok'] as bool;
   }
 
-  Future<Map<String, dynamic>?> release(
+  Future<void> release(
       String appid, String url, String path) async {
+    logger.i("[$appid] : 地址 => $url, 位置 => $path");
     await _dio.download(url, path);
-    return methodChannel.invokeMethod<Map<String, dynamic>>(
+    var result = await methodChannel.invokeMethod(
         "releaseWgtWithAppid", {"appid": appid, "wgtPath": path});
+    logger.i("release info: $result");
   }
 
   Future<String> get _localPath async {

@@ -1,82 +1,38 @@
+import 'package:fl_query/fl_query.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'package:flutter/services.dart';
-import 'package:unimp_sdk_plugin/unimp_sdk_plugin.dart';
+import 'package:get/get.dart';
+import 'package:unimp_sdk_plugin_example/page/home.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await QueryClient.initialize(cachePrefix: 'fl_query_example');
+  runApp(const App());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
+class App extends HookWidget {
 
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _unimpSdkPlugin = UnimpSdkPlugin();
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion = await _unimpSdkPlugin.getPlatformVersion() ??
-          'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
+   return QueryClientProvider(
+      child: MaterialApp(
+        title: 'Fl-Query Example App',
+        theme: ThemeData(
+          useMaterial3: true,
+          primarySwatch: Colors.blue,
         ),
-        body: Center(
-          child: Column(
-            children: [
-              Text('Running on: $_platformVersion\n'),
-              TextButton(
-                child: const Text("open"),
-                onPressed: () {
-                  _unimpSdkPlugin.openUniMP(
-                      "http://poi-img.tantu.com/yzc/test/__UNI__B151577.wgt",
-                      extraData: <String,dynamic>{"a": "b"});
-                },
-              ),
-              TextButton(
-                  onPressed: () async {
-                    var b =
-                        await _unimpSdkPlugin.isExistsUniMP("__UNI__B151577");
-                    print("是否存在$b");
-                  },
-                  child: const Text("check install"))
-            ],
-          ),
+        home: Scaffold(
+            appBar: AppBar(
+              title: const Text('Plugin example app'),
+            ),
+            body: Home()
         ),
       ),
     );
   }
+
 }
