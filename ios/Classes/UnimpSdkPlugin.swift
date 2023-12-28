@@ -80,6 +80,12 @@ public class UnimpSdkPlugin: NSObject, FlutterPlugin,DCUniMPSDKEngineDelegate {
     case "closeUniMP":
       DCUniMPSDKEngine.closeUniMP()
       result(true)
+    case "closeAll":
+        self.runningInstances.values.forEach{  instance in instance.close(completion: { success, error in
+           
+        }) }
+        self.runningInstances.removeAll();
+      result(true)
     case "getUniMPVersionInfo":
       let info = DCUniMPSDKEngine.getUniMPVersionInfo(withAppid: call.arguments as! String)
       result(info)
