@@ -31,7 +31,7 @@ abstract class UnimpSdkPluginPlatform extends PlatformInterface {
     throw UnimplementedError('isExistsUniMP(appid) has not been implemented.');
   }
 
-  Future<bool> openUniMP(String appid, {Map<String, dynamic>? configuration}) {
+  Future<bool> openUniMP(String appid, {Map<String, dynamic>? extraData, int? version}) {
     throw UnimplementedError(
         'openUniMP(appid,{configuration}) has not been implemented.');
   }

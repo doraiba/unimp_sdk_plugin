@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () {
                   _unimpSdkPlugin.openUniMP(
                       "http://poi-img.tantu.com/yzc/test/__UNI__B151577.wgt",
-                      configuration: {"a": "b"});
+                      extraData: <String,dynamic>{"a": "b"});
                 },
               ),
               TextButton(

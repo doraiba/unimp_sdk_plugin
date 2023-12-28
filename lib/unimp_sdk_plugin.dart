@@ -16,9 +16,9 @@ class UnimpSdkPlugin {
     return UnimpSdkPluginPlatform.instance.isExistsUniMP(appid);
   }
 
-  Future<bool> openUniMP(String appid, {Map<String, dynamic>? configuration}) {
+  Future<bool> openUniMP(String appid, {Map<String, dynamic>? extraData, int? version}) {
     return UnimpSdkPluginPlatform.instance
-        .openUniMP(appid, configuration: configuration);
+        .openUniMP(appid, extraData: extraData, version: version);
   }
 
   Future<bool?> closeAll() {

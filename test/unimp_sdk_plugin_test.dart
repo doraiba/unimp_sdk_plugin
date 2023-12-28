@@ -14,10 +14,24 @@ class MockUnimpSdkPluginPlatform
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<Bool?> isExistsUniMP(String appid) {
+  Future<bool> isExistsUniMP(String appid) {
     // TODO: implement isExistsUniMP
     throw UnimplementedError();
   }
+
+  @override
+  Future<bool?> closeAll() {
+    // TODO: implement closeAll
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> openUniMP(String appid, {Map<String, dynamic>? extraData, int? version}) {
+    // TODO: implement openUniMP
+    throw UnimplementedError();
+  }
+
+
 }
 
 void main() {

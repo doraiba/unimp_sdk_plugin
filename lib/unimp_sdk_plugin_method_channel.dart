@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'unimp_sdk_plugin_platform_interface.dart';
@@ -15,6 +16,7 @@ class MethodChannelUnimpSdkPlugin extends UnimpSdkPluginPlatform {
 
   final _dio = Dio();
   final _fileExt = '.wgt';
+  final logger = Logger();
 
   @override
   Future<String?> getPlatformVersion() async {
@@ -35,14 +37,14 @@ class MethodChannelUnimpSdkPlugin extends UnimpSdkPluginPlatform {
 
   @override
   Future<bool> openUniMP(String appid,
-      {Map<String, dynamic>? configuration, int? version}) async {
+      {Map<String, dynamic>? extraData, int? version}) async {
     String path = await _localPath;
     bool isLink = appid.startsWith("http");
     String realAppid = isLink
         ? Uri.parse(appid).pathSegments.last.replaceFirst(_fileExt, '')
         : appid;
     bool exist = await isExistsUniMP(realAppid);
-    debugPrint("app -- $realAppid, exist: $exist");
+    logger.i("app -- $realAppid, exist: $exist");
     String wgtPath = "$path/$realAppid$_fileExt";
 
     if (!exist) {
@@ -56,10 +58,11 @@ class MethodChannelUnimpSdkPlugin extends UnimpSdkPluginPlatform {
       }
     }
 
-    Map<String, dynamic>? r = await methodChannel
-        .invokeMethod<Map<String, dynamic>>(
-            "openUniMP", {"appid": realAppid, "extraData": configuration});
-    return r?['ok'] ?? false;
+    Map<Object?, Object?>? r = await methodChannel
+        .invokeMethod(
+            "openUniMP", {"appid": realAppid, "extraData": extraData});
+    logger.i("result: $r");
+    return r?['ok'] as bool;
   }
 
   Future<Map<String, dynamic>?> release(
