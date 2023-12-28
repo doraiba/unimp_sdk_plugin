@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -39,19 +38,23 @@ class MethodChannelUnimpSdkPlugin extends UnimpSdkPluginPlatform {
       {Map<String, dynamic>? configuration}) async {
     String path = await _localPath;
     bool isLink = appid.startsWith("http");
-    String realAppid = isLink ? Uri.parse(appid).pathSegments.last.replaceFirst(_fileExt, ''): appid;
+    String realAppid = isLink
+        ? Uri.parse(appid).pathSegments.last.replaceFirst(_fileExt, '')
+        : appid;
     bool exist = await isExistsUniMP(realAppid);
     print("app -- $realAppid, exist: $exist");
-    if(!exist){
+    if (!exist) {
       // 获取文件并释放
       String wgtPath = "$path/$realAppid$_fileExt";
       print("url: $appid, location: $wgtPath");
       await _dio.download(appid, wgtPath);
       print("load ok");
-      dynamic installed = await methodChannel.invokeMethod<dynamic>("releaseWgtWithAppid", {"appid": realAppid, "wgtPath": wgtPath});
+      dynamic installed = await methodChannel.invokeMethod<dynamic>(
+          "releaseWgtWithAppid", {"appid": realAppid, "wgtPath": wgtPath});
       print("$realAppid installed: $installed");
     }
-    dynamic test = await methodChannel.invokeMethod("openUniMP", {"appid": realAppid, "configuration": configuration});
+    dynamic test = await methodChannel.invokeMethod(
+        "openUniMP", {"appid": realAppid, "configuration": configuration});
     print("cccc $test");
     return Future(() => false);
   }
@@ -61,7 +64,8 @@ class MethodChannelUnimpSdkPlugin extends UnimpSdkPluginPlatform {
 
     return "${directory.path}/apps";
   }
-  Future<String> getAppBasePath() async{
+
+  Future<String> getAppBasePath() async {
     // 安卓获取运行目录
     return await methodChannel.invokeMethod("getAppBasePath");
   }

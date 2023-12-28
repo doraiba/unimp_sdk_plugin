@@ -16,12 +16,13 @@ public class UnimpSdkPlugin: NSObject, FlutterPlugin {
     case "getPlatformVersion":
       result("iOS " + UIDevice.current.systemVersion)
     case "isExistsUniMP":
-      result(DCUniMPSDKEngine.isExistsUniMP("\(call.arguments)"))
+        let appid = call.arguments as! String;
+        result(DCUniMPSDKEngine.isExistsUniMP(appid))
     case "releaseWgtWithAppid":
       let m = call.arguments as! [String:String];
 
-      let appid: String = m["appid"] as! String
-      let wgtPath: String = m["wgtPath"] as! String
+        let appid: String = m["appid"]!
+        let wgtPath: String = m["wgtPath"]!
 
 			do {
           try DCUniMPSDKEngine.installUniMPResource(withAppid: appid, resourceFilePath: wgtPath, password: nil)

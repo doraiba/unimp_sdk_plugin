@@ -65,6 +65,13 @@ class _MyAppState extends State<MyApp> {
                       "http://poi-img.tantu.com/yzc/test/__UNI__B151577.wgt");
                 },
               ),
+              TextButton(
+                  onPressed: () async {
+                    var b =
+                        await _unimpSdkPlugin.isExistsUniMP("__UNI__B151577");
+                    print("是否存在$b");
+                  },
+                  child: const Text("check install"))
             ],
           ),
         ),

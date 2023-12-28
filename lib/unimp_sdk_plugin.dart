@@ -5,8 +5,6 @@
 // platforms in the `pubspec.yaml` at
 // https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms.
 
-import 'dart:ffi';
-
 import 'unimp_sdk_plugin_platform_interface.dart';
 
 class UnimpSdkPlugin {
@@ -24,7 +22,6 @@ class UnimpSdkPlugin {
   }
 
   Future<bool?> closeAll() {
-    return UnimpSdkPluginPlatform.instance
-        .closeAll();
+    return UnimpSdkPluginPlatform.instance.closeAll();
   }
 }

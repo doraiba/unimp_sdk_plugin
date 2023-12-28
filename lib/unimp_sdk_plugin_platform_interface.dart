@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'unimp_sdk_plugin_method_channel.dart';
@@ -34,10 +32,11 @@ abstract class UnimpSdkPluginPlatform extends PlatformInterface {
   }
 
   Future<bool> openUniMP(String appid, {Map<String, dynamic>? configuration}) {
-    throw UnimplementedError('openUniMP(appid,{configuration}) has not been implemented.');
+    throw UnimplementedError(
+        'openUniMP(appid,{configuration}) has not been implemented.');
   }
 
-  Future<bool?> closeAll () {
+  Future<bool?> closeAll() {
     throw UnimplementedError('closeAll() has not been implemented.');
   }
 }
