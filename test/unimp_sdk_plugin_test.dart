@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flutter/src/services/message_codec.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:unimp_sdk_plugin/unimp_sdk_plugin.dart';
 import 'package:unimp_sdk_plugin/unimp_sdk_plugin_platform_interface.dart';
@@ -29,6 +30,11 @@ class MockUnimpSdkPluginPlatform
   Future<bool> openUniMP(String appid, {Map<String, dynamic>? extraData, int? version}) {
     // TODO: implement openUniMP
     throw UnimplementedError();
+  }
+
+  @override
+  void registerCallHandler(Future Function(MethodCall call)? handler) {
+    // TODO: implement registerCallHandler
   }
 
 
