@@ -10,15 +10,22 @@ import 'package:unimp_sdk_plugin/unimp_sdk_plugin.dart';
 
 class Home extends HookWidget {
   final dio = Dio();
-final uniplugin = UnimpSdkPlugin();
+  final unimpPlugin = UnimpSdkPlugin();
+
+  Home({super.key}) {
+    unimpPlugin.registerHandleReceive((args) async {
+      return ({"hello": "world"});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final query = useQuery<List<Map<String, dynamic>>, dynamic>(
       'fetch-uniapp',
       () async {
-        var l =  await dio
-            .get("http://192.168.1.9:8080/uniapp/uniapp.json")
-            .then((value) => value.data?.cast<Map<String,dynamic>>());
+        var l = await dio
+            .get("http://192.168.14.74:8080/uniapp/uniapp.json")
+            .then((value) => value.data?.cast<Map<String, dynamic>>());
         return l;
       },
       initial: [],
@@ -44,13 +51,13 @@ final uniplugin = UnimpSdkPlugin();
         itemCount: query.data?.length,
         itemBuilder: (context, index) {
           Map<String, dynamic> item = query.data?[index] ?? {};
-          return  GFListTile(
-            onTap: (){
-              uniplugin.openUniMP(item["url"]);
-            },
+          return GFListTile(
+              onTap: () {
+                unimpPlugin.openUniMP(item["url"]);
+              },
               color: GFColors.DARK,
               title: Text(
-                item["title"] ,
+                item["title"],
                 style: const TextStyle(color: GFColors.WHITE),
               ),
               icon: const Icon(

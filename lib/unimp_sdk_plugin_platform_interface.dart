@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'unimp_sdk_plugin_method_channel.dart';
@@ -23,7 +24,10 @@ abstract class UnimpSdkPluginPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
+  void registerCallHandler(Future<dynamic> Function(MethodCall call)? handler) {
+  }
+
+    Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
@@ -39,4 +43,5 @@ abstract class UnimpSdkPluginPlatform extends PlatformInterface {
   Future<bool?> closeAll() {
     throw UnimplementedError('closeAll() has not been implemented.');
   }
+
 }

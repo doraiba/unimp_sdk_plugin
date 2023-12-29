@@ -3,14 +3,16 @@ import FlutterUniAppMp
 import UIKit
 
 public class UnimpSdkPlugin: NSObject, FlutterPlugin,DCUniMPSDKEngineDelegate {
-    
-    
-    var runningInstances = Dictionary<String, DCUniMPInstance>();
+
+  var runningInstances = [String: DCUniMPInstance]();
+   var channel:FlutterMethodChannel?;
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(
       name: "unimp_sdk_plugin", binaryMessenger: registrar.messenger())
-    let instance = UnimpSdkPlugin()
+      let instance = UnimpSdkPlugin()
+      instance.channel = channel;
+
     registrar.addApplicationDelegate(instance)
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
@@ -82,7 +84,7 @@ public class UnimpSdkPlugin: NSObject, FlutterPlugin,DCUniMPSDKEngineDelegate {
       result(true)
     case "closeAll":
         self.runningInstances.values.forEach{  instance in instance.close(completion: { success, error in
-           
+
         }) }
         self.runningInstances.removeAll();
       result(true)
@@ -98,7 +100,7 @@ public class UnimpSdkPlugin: NSObject, FlutterPlugin,DCUniMPSDKEngineDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [AnyHashable: Any] = [:]
   ) -> Bool {
-     
+
 
     let mpOptions = NSMutableDictionary(dictionary: launchOptions)
     mpOptions.setValue(NSNumber(value: true), forKey: "debug")
@@ -121,14 +123,14 @@ public class UnimpSdkPlugin: NSObject, FlutterPlugin,DCUniMPSDKEngineDelegate {
       DCUniMPSDKEngine.setDelegate(self)
       let enterBackground:DCUniMPMenuActionSheetItem = DCUniMPMenuActionSheetItem.init(title: "隐藏到后台", identifier: "enterBackground");
       let closeUniMP:DCUniMPMenuActionSheetItem = DCUniMPMenuActionSheetItem.init(title: "关闭小程序", identifier: "closeUniMP");
-              
+
       DCUniMPSDKEngine.setDefaultMenuItems([enterBackground,closeUniMP])
     return true
   }
-    
+
     public func defaultMenuItemClicked(_ appid: String, identifier: String) {
             print("标识为 \(identifier) 的 item 被点击了", identifier);
-            
+
             // 将小程序隐藏到后台
             if (identifier == "enterBackground"){
                 self.runningInstances[appid]?.hide(completion: { success, error in
@@ -153,4 +155,19 @@ public class UnimpSdkPlugin: NSObject, FlutterPlugin,DCUniMPSDKEngineDelegate {
                 self.runningInstances[appid]?.sendUniMPEvent("NativeEvent", data: ["msg":"native message"])
             }
         }
+    public func onUniMPEventReceive(_ appid: String, event: String, data: Any, callback: @escaping DCUniMPKeepAliveCallback) {
+        print("[\(appid)] [\(event)]: \(data)")
+
+        let args:[String:Any] = ["appid": appid,"data": data]
+        channel?.invokeMethod("handleReceive", arguments: args, result: {(r:Any?) -> () in
+            if let resultValue = r {
+                print(resultValue) // 打印返回值
+                callback(resultValue, false);
+            } else {
+                print("No return value.")
+                callback([:],false);
+            }
+
+        })
+    }
 }

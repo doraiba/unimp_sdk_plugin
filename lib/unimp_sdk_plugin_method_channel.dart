@@ -14,6 +14,14 @@ class MethodChannelUnimpSdkPlugin extends UnimpSdkPluginPlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('unimp_sdk_plugin');
 
+  void registerDefaultCall(){
+    methodChannel.setMethodCallHandler((call) => call.arguments);
+  }
+  @override
+  void registerCallHandler(Future<dynamic> Function(MethodCall call)? handler){
+    methodChannel.setMethodCallHandler(handler);
+  }
+
   final _dio = Dio();
   final _fileExt = '.wgt';
   final logger = Logger();
@@ -44,18 +52,23 @@ class MethodChannelUnimpSdkPlugin extends UnimpSdkPluginPlatform {
         ? Uri.parse(appid).pathSegments.last.replaceFirst(_fileExt, '')
         : appid;
     bool exist = await isExistsUniMP(realAppid);
-    logger.i("app -- $realAppid, exist: $exist");
     String wgtPath = "$path/$realAppid$_fileExt";
+    logger.i("[$realAppid]: exist => $exist, path: $wgtPath");
 
-    if (!exist) {
-      await release(realAppid, appid, wgtPath);
+    if (!exist && !isLink) {
+      throw UnsupportedError("$realAppid not found");
     }
-    if (version != null) {
-      bool needUpdate = await methodChannel
-          .invokeMethod("updateCheck", {"appid": realAppid, version: version});
-      if (needUpdate) {
-        await release(realAppid, appid, wgtPath);
-      }
+    var fetch = false;
+    if (!exist) {
+      fetch = true;
+    }
+    if (!fetch && version != null) {
+      bool upd =  await updateCheck(realAppid, version) ?? true;
+      fetch = upd && isLink;
+    }
+    if(fetch) {
+      logger.i("[$realAppid]: link => $appid, version => $version");
+      await release(realAppid, appid, wgtPath);
     }
 
     Map<Object?, Object?>? r = await methodChannel
@@ -65,13 +78,16 @@ class MethodChannelUnimpSdkPlugin extends UnimpSdkPluginPlatform {
     return r?['ok'] as bool;
   }
 
+  Future<bool?> updateCheck(String appid,int version){
+    return  methodChannel
+        .invokeMethod("updateCheck", {"appid": appid, version: version});
+  }
+
   Future<void> release(
       String appid, String url, String path) async {
-    logger.i("[$appid] : 地址 => $url, 位置 => $path");
     await _dio.download(url, path);
-    var result = await methodChannel.invokeMethod(
+    await methodChannel.invokeMethod(
         "releaseWgtWithAppid", {"appid": appid, "wgtPath": path});
-    logger.i("release info: $result");
   }
 
   Future<String> get _localPath async {
