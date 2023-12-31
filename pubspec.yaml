@@ -43,7 +43,7 @@ flutter:
     # https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms
     # -------------------
       android:
-        package: com.github.doraiba
+        package: com.github.unimp_sdk_plugin
         pluginClass: UnimpSdkPlugin
       ios:
         pluginClass: UnimpSdkPlugin
