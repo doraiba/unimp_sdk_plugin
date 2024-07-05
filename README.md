@@ -5,5 +5,5 @@ A new Flutter plugin project.
 ## Getting Started
 
 <video width="430" height="932" controls>
-<source src="./Simulator Screen Recording - iPhone 15 Pro - 2023-12-29 at 11.18.37.mp4" type="video/mp4">
+<source src="https://github.com/doraiba/unimp_sdk_plugin/blob/main/Simulator%20Screen%20Recording%20-%20iPhone%2015%20Pro%20-%202023-12-29%20at%2011.18.37.mp4" type="video/mp4">
 </video>
